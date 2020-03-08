@@ -2,5 +2,5 @@ package iplanalyser;
 
 public enum  sortField {
 
-AVERAGE,FOURS,SIX,STRIKE_RATE;
+AVERAGE,FOURS,SIX,STRIKE_RATE,FourAndSix;
 }

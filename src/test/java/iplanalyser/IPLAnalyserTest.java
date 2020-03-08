@@ -7,7 +7,6 @@ import org.junit.Test;
 public class IPLAnalyserTest {
     public static final String IPL_RUNS_DATA = "./src/test/resources/IPL2019FactsheetMostRuns.csv";
 
-
     @Test
     public void givenIPLRunsData_whenSortedOnBattingAvg_ShouldReturnTrue() {
         try {
@@ -15,12 +14,11 @@ public class IPLAnalyserTest {
              iplAnalyser.loadIplData(IPL_RUNS_DATA);
             String loadIplData = iplAnalyser.getSortedIPLData(sortField.AVERAGE);
             IplDTO[] censusCSV = new Gson().fromJson(loadIplData, IplDTO[].class);
-            Assert.assertEquals("MS Dhoni", censusCSV[censusCSV.length-1].player);
+            Assert.assertEquals("MS Dhoni", censusCSV[censusCSV.length-1].runs);
         } catch (IPLAnalyserException e) {
             e.printStackTrace();
         }
     }
-
 
     @Test
     public void givenIPLRunsData_whenSortedOnStrikkingRate_ShouldReturnTrue() {
@@ -34,5 +32,23 @@ public class IPLAnalyserTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void givenIPLRunsData_whenSortedOnMaxSixAndFour_ShouldReturnTrue() {
+        try {
+            IPLAnalyser iplAnalyser = new IPLAnalyser();
+            iplAnalyser.loadIplData(IPL_RUNS_DATA);
+            String loadIplData = iplAnalyser.getSortedIPLData(sortField.FourAndSix);
+            IplDTO[] censusCSV = new Gson().fromJson(loadIplData, IplDTO[].class);
+            Assert.assertEquals("Andre Russell", censusCSV[censusCSV.length-1].player);
+        } catch (IPLAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+
 
 }

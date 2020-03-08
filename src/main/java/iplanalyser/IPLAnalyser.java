@@ -23,6 +23,7 @@ public class IPLAnalyser {
         sortedMap = new HashMap<>();
         this.sortedMap.put(sortField.AVERAGE,Comparator.comparing(census -> census.avg));
         this.sortedMap.put(sortField.STRIKE_RATE,Comparator.comparing(census -> census.strikeRate));
+        this.sortedMap.put(sortField.FourAndSix,Comparator.comparing(census -> census.four + census.six));
 
 
     }
