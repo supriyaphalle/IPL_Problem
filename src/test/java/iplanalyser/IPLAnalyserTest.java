@@ -59,6 +59,20 @@ public class IPLAnalyserTest {
         }
     }
 
+    @Test
+    public void givenIPLRunsData_whenSortedOnStrikeRate_ShouldReturnMaximumAverage() {
+        try {
+            IPLAnalyser iplAnalyser = new IPLAnalyser();
+            iplAnalyser.loadIplData(IPL_RUNS_DATA);
+            String loadIplData = iplAnalyser.getSortedIPLData(sortField.AVERAGE);
+            IplDTO[] censusCSV = new Gson().fromJson(loadIplData, IplDTO[].class);
+            Assert.assertEquals(134.62, censusCSV[censusCSV.length-1].strikeRate,00);
+        } catch (IPLAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 
 
