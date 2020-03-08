@@ -24,14 +24,14 @@ public class IPLAnalyser {
         this.sortedMap.put(sortField.AVERAGE,Comparator.comparing(census -> census.avg));
         this.sortedMap.put(sortField.STRIKE_RATE,Comparator.comparing(census -> census.strikeRate));
         this.sortedMap.put(sortField.FourAndSix,Comparator.comparing(census -> census.four + census.six));
-        this.sortedMap.put(sortField.RUNS,Comparator.comparing(census -> census.strikeRate));
+        this.sortedMap.put(sortField.RUNS,Comparator.comparing(census -> census.runs));
     }
 
     public static void main(String[] args) {
         System.out.println("Welcome to the Ipl- 2K19 Analyser");
     }
 
-    public void loadIplData(String FilePath) throws IPLAnalyserException {
+    public void loadIplRunsData(String FilePath) throws IPLAnalyserException {
         try (Reader reader = Files.newBufferedReader(Paths.get(FilePath))) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
             Iterator <IplRunsCSV> iterator = csvBuilder.getCSVFileIterator(reader, IplRunsCSV.class);
@@ -44,6 +44,24 @@ public class IPLAnalyser {
             throw new IPLAnalyserException(ex.getMessage(), IPLAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
         }
     }
+
+    public void loadIplWKTSData(String FilePath) throws IPLAnalyserException {
+        try (Reader reader = Files.newBufferedReader(Paths.get(FilePath))) {
+            ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
+            Iterator <IplWKTsCSV> iterator = csvBuilder.getCSVFileIterator(reader, IplWKTsCSV.class);
+            Iterable<IplWKTsCSV > csvIterable = () -> iterator;
+            StreamSupport.stream(csvIterable.spliterator(), false)
+                    .forEach(csvName -> iplMap.put(csvName.player,new IplDTO(csvName)));
+            System.out.println(iplMap);
+            // return iplMap.size();
+        } catch (IOException ex) {
+            throw new IPLAnalyserException(ex.getMessage(), IPLAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
+        }
+    }
+
+
+
+
 
     public String getSortedIPLData(sortField field) throws IPLAnalyserException {
         if (iplMap == null || iplMap.size() == 0) {
