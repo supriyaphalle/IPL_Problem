@@ -4,7 +4,7 @@ public class IPLAnalyserException extends Throwable {
 
 
     enum ExceptionType {
-        UNABLE_TO_PARSE, NO_CENSUS_DATA, CENSUS_FILE_PROBLEM
+        UNABLE_TO_PARSE, NO_CENSUS_DATA, IPLDATA_FILE_PROBLEM,INVALID_DATA ;
     }
 
     ExceptionType type;

@@ -11,34 +11,41 @@ public class IPLAnalyser {
     private List<IplDTO> iplDTOList;
     private IplDTO census;
 
+    public enum CSVType{
+        RUNS,WICKETS;
+    }
 
     public IPLAnalyser() {
         sortedMap = new HashMap<>();
         this.sortedMap.put(sortField.AVERAGE, Comparator.comparing(census -> census.avg));
         this.sortedMap.put(sortField.STRIKE_RATE, Comparator.comparing(census -> census.strikeRate));
         this.sortedMap.put(sortField.FourAndSix, Comparator.comparing(census -> census.four + census.six));
+        this.sortedMap.put(sortField.SIX_FOUR, new compareSixAndFours().thenComparing((census -> census.strikeRate)));
+
         this.sortedMap.put(sortField.RUNS, Comparator.comparing(census -> census.runs));
         this.sortedMap.put(sortField.ECONOMY, Comparator.comparing(census -> census.economy));
+        this.sortedMap.put(sortField.FIVE_FOUR, new compareFiveAndFours().thenComparing((census -> census.strikeRate)));
+
     }
 
     public static void main(String[] args) {
         System.out.println("Welcome to the Ipl- 2K19 Analyser");
     }
 
-    public void loadIplRunsData(String FilePath) throws IPLAnalyserException {
-        iplMap = new IplDataLoader().loadIplData(IplRunsCSV.class, FilePath);
+    public void loadIplData(CSVType type, String FilePath) throws IPLAnalyserException {
+        iplMap = new IplDataLoader().loadIplData(type, FilePath);
     }
-
+/*
     public void loadIplWKTsData(String FilePath) throws IPLAnalyserException {
         iplMap = new IplDataLoader().loadIplData(IplWKTsCSV.class, FilePath);
-    }
+    }*/
 
     public String getSortedIPLData(sortField field) throws IPLAnalyserException {
         if (iplMap == null || iplMap.size() == 0) {
             throw new IPLAnalyserException("No Census Data", IPLAnalyserException.ExceptionType.NO_CENSUS_DATA);
         }
         iplDTOList = iplMap.values().stream().collect(Collectors.toList());
-        this.sort(iplDTOList, this.sortedMap.get(field));
+        this.sort(iplDTOList, this.sortedMap.get(field).reversed());
         String sortedStateCensusJson = new Gson().toJson(iplDTOList);
         return sortedStateCensusJson;
     }
