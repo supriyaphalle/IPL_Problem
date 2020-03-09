@@ -23,6 +23,8 @@ public class IplWKTsCSV {
     @CsvBindByName(column = "Avg", required = true)
     public double Avg;
 
+    @CsvBindByName(column = "Econ", required = true)
+    public double Econ;
 
     @Override
     public String toString() {
@@ -33,6 +35,7 @@ public class IplWKTsCSV {
                 ", Four =" + four + '\'' +
                 ", Five Wickets = " + five + '\'' +
                 "Strike Rate = " + strikeRate + '\'' +
+                "Economy = + " +Econ+ '\''+
                 '}';
     }
 
