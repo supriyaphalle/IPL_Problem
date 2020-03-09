@@ -113,4 +113,18 @@ public class IPLAnalyserTest {
     }
 
 
+    @Test
+    public void givenIPLBollingData_whenSortedOnEconomy_ShouldReturnTrue() {
+        try {
+            IPLAnalyser iplAnalyser = new IPLAnalyser();
+            iplAnalyser.loadIplWKTsData(IPL_BOLLING_DATA);
+            String loadIplData = iplAnalyser.getSortedIPLData(sortField.ECONOMY);
+            IplDTO[] censusCSV = new Gson().fromJson(loadIplData, IplDTO[].class);
+            Assert.assertEquals("Ben Cutting", censusCSV[censusCSV.length - 1].player);
+        } catch (IPLAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
