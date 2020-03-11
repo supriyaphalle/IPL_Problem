@@ -61,27 +61,27 @@ public class IPLAnalyserTest {
     }
 
     @Test
-    public void givenIPLRunsData_whenSortedOnStrikeRate_ShouldReturnMaximumAverage() {
+    public void givenIPLRunsData_whenGreatAverageWithBestStrikeRate_ShouldReturnTrue() {
         try {
             IPLAnalyser iplAnalyser = new IPLAnalyser();
             iplAnalyser.loadIplData(IPLAnalyser.CSVType.RUNS, IPL_RUNS_DATA);
-            String loadIplData = iplAnalyser.getSortedIPLData(sortField.AVERAGE);
+            String loadIplData = iplAnalyser.getSortedIPLData(sortField.AVERAGE_STRIKE);
             IplDTO[] censusCSV = new Gson().fromJson(loadIplData, IplDTO[].class);
             System.out.println(censusCSV);
-            Assert.assertEquals(134.62, censusCSV[0].strikeRate, 00);
+            Assert.assertEquals("MS Dhoni", censusCSV[0].player);
         } catch (IPLAnalyserException e) {
             e.printStackTrace();
         }
     }
 
     @Test
-    public void givenIPLRunsData_whenSortedOnRuns_ShouldReturnMaximumAverage() {
+    public void givenIPLRunsData_whenMaximumRunsWithBestAverage_ShouldReturnTrue() {
         try {
             IPLAnalyser iplAnalyser = new IPLAnalyser();
             iplAnalyser.loadIplData(IPLAnalyser.CSVType.RUNS, IPL_RUNS_DATA);
-            String loadIplData = iplAnalyser.getSortedIPLData(sortField.RUNS);
+            String loadIplData = iplAnalyser.getSortedIPLData(sortField.RUNS_AVERAGE);
             IplDTO[] censusCSV = new Gson().fromJson(loadIplData, IplDTO[].class);
-            Assert.assertEquals("David Warner ", censusCSV[0].player);
+            Assert.assertEquals("MS Dhoni", censusCSV[0].player);
         } catch (IPLAnalyserException e) {
             e.printStackTrace();
         }
@@ -113,7 +113,6 @@ public class IPLAnalyserTest {
         }
     }
 
-
     @Test
     public void givenIPLBollingData_whenSortedOnEconomy_ShouldReturnTrue() {
         try {
@@ -135,6 +134,34 @@ public class IPLAnalyserTest {
             String loadIplData = iplAnalyser.getSortedIPLData(sortField.FIVE_FOUR);
             IplDTO[] censusCSV = new Gson().fromJson(loadIplData, IplDTO[].class);
             Assert.assertEquals("Lasith Malinga", censusCSV[0].player);
+        } catch (IPLAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenIPLBollingData_whenSorteOnBollingAvgWithBestStrikeRate_ShouldReturnTrue() {
+        try {
+            IPLAnalyser iplAnalyser = new IPLAnalyser();
+            iplAnalyser.loadIplData(IPLAnalyser.CSVType.WICKETS, IPL_BOLLING_DATA);
+            String loadIplData = iplAnalyser.getSortedIPLData(sortField.AVERAGE_STRIKE);
+            IplDTO[] censusCSV = new Gson().fromJson(loadIplData, IplDTO[].class);
+            Assert.assertEquals("Krishnappa Gowtham", censusCSV[0].player);
+        } catch (IPLAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    @Test
+    public void givenIPLBollingData_whenSorteOnMaximumWicketsWithBestBollingAvg_ShouldReturnTrue() {
+        try {
+            IPLAnalyser iplAnalyser = new IPLAnalyser();
+            iplAnalyser.loadIplData(IPLAnalyser.CSVType.WICKETS, IPL_BOLLING_DATA);
+            String loadIplData = iplAnalyser.getSortedIPLData(sortField.WICKET_AVERAGE);
+            IplDTO[] censusCSV = new Gson().fromJson(loadIplData, IplDTO[].class);
+            Assert.assertEquals("Imran Tahir", censusCSV[0].player);
         } catch (IPLAnalyserException e) {
             e.printStackTrace();
         }
