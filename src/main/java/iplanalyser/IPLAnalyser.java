@@ -11,12 +11,14 @@ public class IPLAnalyser {
     private List<IplDTO> iplDTOList;
     private IplDTO census;
 
-    public enum CSVType{
-        RUNS,WICKETS;
+    public enum CSVType {
+        RUNS, WICKETS;
     }
 
     public IPLAnalyser() {
         sortedMap = new HashMap<>();
+        Comparator<IplDTO> avgStrike = Comparator.comparing((census -> census.avg));
+        this.sortedMap.put(sortField.AVERAGE_STRIKE, avgStrike.thenComparing(census -> census.strikeRate));
         this.sortedMap.put(sortField.AVERAGE, Comparator.comparing(census -> census.avg));
         this.sortedMap.put(sortField.STRIKE_RATE, Comparator.comparing(census -> census.strikeRate));
         this.sortedMap.put(sortField.FourAndSix, Comparator.comparing(census -> census.four + census.six));
@@ -26,6 +28,9 @@ public class IPLAnalyser {
         this.sortedMap.put(sortField.ECONOMY, Comparator.comparing(census -> census.economy));
         this.sortedMap.put(sortField.FIVE_FOUR, new compareFiveAndFours().thenComparing((census -> census.strikeRate)));
 
+        Comparator<IplDTO> runAverage = Comparator.comparing((census -> census.runs));
+        this.sortedMap.put(sortField.RUNS_AVERAGE, avgStrike.thenComparing(census -> census.avg));
+
     }
 
     public static void main(String[] args) {
@@ -33,12 +38,8 @@ public class IPLAnalyser {
     }
 
     public void loadIplData(CSVType type, String FilePath) throws IPLAnalyserException {
-        iplMap = new IplDataLoader().loadIplData(type, FilePath);
+        iplMap = new IplAdaptorFactory().getIplData(type, FilePath);
     }
-/*
-    public void loadIplWKTsData(String FilePath) throws IPLAnalyserException {
-        iplMap = new IplDataLoader().loadIplData(IplWKTsCSV.class, FilePath);
-    }*/
 
     public String getSortedIPLData(sortField field) throws IPLAnalyserException {
         if (iplMap == null || iplMap.size() == 0) {

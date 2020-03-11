@@ -12,20 +12,12 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.stream.StreamSupport;
 
-public class IplDataLoader {
-    Map<String, IplDTO> iplMap = new HashMap<>();
+public abstract class IplAdaptor {
 
-    public  Map<String, IplDTO> loadIplData(IPLAnalyser.CSVType type, String FilePath) throws IPLAnalyserException {
-            if(type.equals(IPLAnalyser.CSVType.RUNS))
-                return this.loadIplData(IplRunsCSV.class,FilePath);
-            else if (type.equals(IPLAnalyser.CSVType.WICKETS))
-                return  this.loadIplData(IplWKTsCSV.class,FilePath);
-            else
-                 throw new IPLAnalyserException("Invalid data", IPLAnalyserException.ExceptionType.INVALID_DATA);
-    }
-
+    public abstract Map<String, IplDTO> loadIplData(String csvFilePath);
 
     public <E> Map<String, IplDTO> loadIplData(Class<E> IplCSV, String FilePath) throws IPLAnalyserException {
+        Map<String, IplDTO> iplMap = new HashMap<>();
         try (Reader reader = Files.newBufferedReader(Paths.get(FilePath))) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
             Iterator<E> iterator = csvBuilder.getCSVFileIterator(reader, IplCSV);
@@ -42,8 +34,7 @@ public class IplDataLoader {
             }
             return iplMap;
         } catch (IOException ex) {
-            throw new IPLAnalyserException(ex.getMessage(), IPLAnalyserException.ExceptionType.IPLDATA_FILE_PROBLEM);
+            throw new IPLAnalyserException(ex.getMessage(), IPLAnalyserException.ExceptionType.IPL_DATA_FILE_PROBLEM);
         }
     }
-
 }

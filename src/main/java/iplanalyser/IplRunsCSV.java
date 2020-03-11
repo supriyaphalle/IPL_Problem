@@ -24,7 +24,7 @@ public class IplRunsCSV {
     public double strikeRate;
 
 
-    @Override
+   /* @Override
     public String toString() {
         return "IplRunsCSV{" +
                 "Runs=" + runs + '\'' +
@@ -33,5 +33,5 @@ public class IplRunsCSV {
                 ", Six = " + six + '\'' +
                 "Strike Rate = " + strikeRate + '\'' +
                 '}';
-    }
+    }*/
 }

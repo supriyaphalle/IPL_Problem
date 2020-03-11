@@ -1,11 +1,7 @@
 package iplanalyser;
 
-public class IPLAnalyserException extends Throwable {
+public class IPLAnalyserException extends RuntimeException {
 
-
-    enum ExceptionType {
-        UNABLE_TO_PARSE, NO_CENSUS_DATA, IPLDATA_FILE_PROBLEM,INVALID_DATA ;
-    }
 
     ExceptionType type;
 
@@ -17,5 +13,9 @@ public class IPLAnalyserException extends Throwable {
     public IPLAnalyserException(String message, ExceptionType type, Throwable cause) {
         super(message, cause);
         this.type = type;
+    }
+
+    enum ExceptionType {
+        UNABLE_TO_PARSE, NO_CENSUS_DATA, IPL_DATA_FILE_PROBLEM, INVALID_DATA
     }
 }

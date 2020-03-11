@@ -10,6 +10,7 @@ public class IplDTO {
     public double strikeRate;
     public double avg;
     public double economy;
+
     public IplDTO(IplRunsCSV IplRunsCSV) {
         player = IplRunsCSV.player;
         runs = IplRunsCSV.runs;
@@ -26,6 +27,6 @@ public class IplDTO {
         five = IplWKTsCSV.five;
         strikeRate = IplWKTsCSV.strikeRate;
         avg = IplWKTsCSV.Avg;
-        economy=IplWKTsCSV.Econ;
+        economy = IplWKTsCSV.Econ;
     }
 }

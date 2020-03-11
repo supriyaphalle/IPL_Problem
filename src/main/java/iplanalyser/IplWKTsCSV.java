@@ -26,7 +26,7 @@ public class IplWKTsCSV {
     @CsvBindByName(column = "Econ", required = true)
     public double Econ;
 
-    @Override
+ /*   @Override
     public String toString() {
         return "IplWicketsCSV{" + '\'' +
                 "Player = " + player + '\'' +
@@ -35,9 +35,9 @@ public class IplWKTsCSV {
                 ", Four =" + four + '\'' +
                 ", Five Wickets = " + five + '\'' +
                 "Strike Rate = " + strikeRate + '\'' +
-                "Economy = + " +Econ+ '\''+
+                "Economy = + " + Econ + '\'' +
                 '}';
     }
-
+*/
 
 }
