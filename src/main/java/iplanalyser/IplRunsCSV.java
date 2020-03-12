@@ -23,15 +23,4 @@ public class IplRunsCSV {
     @CsvBindByName(column = "SR", required = true)
     public double strikeRate;
 
-
-   /* @Override
-    public String toString() {
-        return "IplRunsCSV{" +
-                "Runs=" + runs + '\'' +
-                ", Avg = " + Avg + '\'' +
-                ", Four =" + four + '\'' +
-                ", Six = " + six + '\'' +
-                "Strike Rate = " + strikeRate + '\'' +
-                '}';
-    }*/
 }

@@ -21,23 +21,13 @@ public class IplWKTsCSV {
     public double strikeRate;
 
     @CsvBindByName(column = "Avg", required = true)
-    public double Avg;
+    public double avgBolling;
 
     @CsvBindByName(column = "Econ", required = true)
     public double Econ;
 
- /*   @Override
-    public String toString() {
-        return "IplWicketsCSV{" + '\'' +
-                "Player = " + player + '\'' +
-                "Runs=" + runs + '\'' +
-                ", Avg = " + Avg + '\'' +
-                ", Four =" + four + '\'' +
-                ", Five Wickets = " + five + '\'' +
-                "Strike Rate = " + strikeRate + '\'' +
-                "Economy = + " + Econ + '\'' +
-                '}';
-    }
-*/
+  @CsvBindByName(column = "Wkts" , required = true)
+    public int Wkts;
+
 
 }

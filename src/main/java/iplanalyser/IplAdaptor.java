@@ -14,10 +14,10 @@ import java.util.stream.StreamSupport;
 
 public abstract class IplAdaptor {
 
-    public abstract Map<String, IplDTO> loadIplData(String csvFilePath);
+    public abstract Map<String, IplDTO> loadIplData(String... csvFilePath) ;
+    Map<String, IplDTO> iplMap = new HashMap<>();
 
     public <E> Map<String, IplDTO> loadIplData(Class<E> IplCSV, String FilePath) throws IPLAnalyserException {
-        Map<String, IplDTO> iplMap = new HashMap<>();
         try (Reader reader = Files.newBufferedReader(Paths.get(FilePath))) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
             Iterator<E> iterator = csvBuilder.getCSVFileIterator(reader, IplCSV);
@@ -26,7 +26,6 @@ public abstract class IplAdaptor {
                 StreamSupport.stream(csvIterable.spliterator(), false)
                         .map((IplRunsCSV.class::cast))
                         .forEach(csvName -> iplMap.put(csvName.player, new IplDTO(csvName)));
-                // .forEach(csvName ->this.iplDTOList.add(new IplDTO(csvName)));
             } else if (IplCSV.getName() == "iplanalyser.IplWKTsCSV") {
                 StreamSupport.stream(csvIterable.spliterator(), false)
                         .map((IplWKTsCSV.class::cast))

@@ -9,7 +9,10 @@ public class IplDTO {
     public int five;
     public double strikeRate;
     public double avg;
+    public double avgBolling;
+
     public double economy;
+    public int Wicket;
 
     public IplDTO(IplRunsCSV IplRunsCSV) {
         player = IplRunsCSV.player;
@@ -26,7 +29,9 @@ public class IplDTO {
         four = IplWKTsCSV.four;
         five = IplWKTsCSV.five;
         strikeRate = IplWKTsCSV.strikeRate;
-        avg = IplWKTsCSV.Avg;
+        avgBolling = IplWKTsCSV.avgBolling;
         economy = IplWKTsCSV.Econ;
+        Wicket =IplWKTsCSV.Wkts;
     }
+
 }
