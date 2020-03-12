@@ -81,7 +81,7 @@ public class IPLAnalyserTest {
             iplAnalyser.loadIplData(IPLAnalyser.CSVType.RUNS, IPL_RUNS_DATA);
             String loadIplData = iplAnalyser.getSortedIPLData(sortField.RUNS_AVERAGE);
             IplDTO[] censusCSV = new Gson().fromJson(loadIplData, IplDTO[].class);
-            Assert.assertEquals("MS Dhoni", censusCSV[0].player);
+            Assert.assertEquals("David Warner", censusCSV[0].player);
         } catch (IPLAnalyserException e) {
             e.printStackTrace();
         }
@@ -92,7 +92,7 @@ public class IPLAnalyserTest {
         try {
             IPLAnalyser iplAnalyser = new IPLAnalyser();
             iplAnalyser.loadIplData(IPLAnalyser.CSVType.WICKETS, IPL_BOLLING_DATA);
-            String loadIplData = iplAnalyser.getSortedIPLData(sortField.AVERAGE);
+            String loadIplData = iplAnalyser.getSortedIPLData(sortField.BOLLING_AVERAGE);
             IplDTO[] censusCSV = new Gson().fromJson(loadIplData, IplDTO[].class);
             Assert.assertEquals("Krishnappa Gowtham", censusCSV[0].player);
         } catch (IPLAnalyserException e) {
@@ -144,7 +144,7 @@ public class IPLAnalyserTest {
         try {
             IPLAnalyser iplAnalyser = new IPLAnalyser();
             iplAnalyser.loadIplData(IPLAnalyser.CSVType.WICKETS, IPL_BOLLING_DATA);
-            String loadIplData = iplAnalyser.getSortedIPLData(sortField.AVERAGE_STRIKE);
+            String loadIplData = iplAnalyser.getSortedIPLData(sortField.AVG_STRIKE);
             IplDTO[] censusCSV = new Gson().fromJson(loadIplData, IplDTO[].class);
             Assert.assertEquals("Krishnappa Gowtham", censusCSV[0].player);
         } catch (IPLAnalyserException e) {
@@ -153,9 +153,8 @@ public class IPLAnalyserTest {
     }
 
 
-
     @Test
-    public void givenIPLBollingData_whenSorteOnMaximumWicketsWithBestBollingAvg_ShouldReturnTrue() {
+    public void givenIPLBollingData_whenSortOnMaximumWicketsWithBestBollingAvg_ShouldReturnTrue() {
         try {
             IPLAnalyser iplAnalyser = new IPLAnalyser();
             iplAnalyser.loadIplData(IPLAnalyser.CSVType.WICKETS, IPL_BOLLING_DATA);
@@ -167,5 +166,18 @@ public class IPLAnalyserTest {
         }
     }
 
+   @Test
+    public void givenIPLData_whenSortOnBattingAndBollingAvg_ShouldReturnTrue() {
+        try {
+            IPLAnalyser iplAnalyser = new IPLAnalyser();
+            iplAnalyser.loadData(sortField.BATTINGBOLLING_AVERAGE, IPL_RUNS_DATA, IPL_BOLLING_DATA);
+            //            iplAnalyser.loadIplData(IPLAnalyser.CSVType.RUNS, IPL_RUNS_DATA, IPL_BOLLING_DATA);
+            String loadIplData = iplAnalyser.getSortedIPLData(sortField.BATTINGBOLLING_AVERAGE);
+            IplDTO[] censusCSV = new Gson().fromJson(loadIplData, IplDTO[].class);
+            Assert.assertEquals("Marcus Stoinis", censusCSV[0].player);
+        } catch (IPLAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
