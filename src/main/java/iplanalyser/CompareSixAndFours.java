@@ -2,7 +2,7 @@ package iplanalyser;
 
 import java.util.Comparator;
 
-public class compareSixAndFours implements Comparator<IplDTO> {
+public class CompareSixAndFours implements Comparator<IplDTO> {
 
     @Override
     public int compare(IplDTO t1, IplDTO t2) {

@@ -2,7 +2,7 @@ package iplanalyser;
 
 import java.util.Map;
 
-public class IPLWKTAdaptor extends IplAdaptor {
+public class IplWKTAdaptor extends IplAdaptor {
 
 
     @Override

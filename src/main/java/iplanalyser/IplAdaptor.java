@@ -18,7 +18,7 @@ public abstract class IplAdaptor {
 
     Map<String, IplDTO> iplMap = new HashMap<>();
 
-    public <E> Map<String, IplDTO> loadIplData(Class<E> IplCSV, String FilePath) throws IPLAnalyserException {
+    public <E> Map<String, IplDTO> loadIplData(Class<E> IplCSV, String FilePath) throws IplAnalyserException {
         try (Reader reader = Files.newBufferedReader(Paths.get(FilePath))) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
             Iterator<E> iterator = csvBuilder.getCSVFileIterator(reader, IplCSV);
@@ -34,7 +34,7 @@ public abstract class IplAdaptor {
             }
             return iplMap;
         } catch (IOException ex) {
-            throw new IPLAnalyserException(ex.getMessage(), IPLAnalyserException.ExceptionType.IPL_DATA_FILE_PROBLEM);
+            throw new IplAnalyserException(ex.getMessage(), IplAnalyserException.ExceptionType.IPL_DATA_FILE_PROBLEM);
         }
     }
 }

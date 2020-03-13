@@ -1,11 +1,11 @@
 package iplanalyser;
 
-public class IPLAnalyserException extends RuntimeException {
+public class IplAnalyserException extends RuntimeException {
 
 
     ExceptionType type;
 
-    public IPLAnalyserException(String message, ExceptionType type) {
+    public IplAnalyserException(String message, ExceptionType type) {
         super(message);
         this.type = type;
     }

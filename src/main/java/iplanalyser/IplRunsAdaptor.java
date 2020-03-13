@@ -11,7 +11,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.stream.StreamSupport;
 
-public class IPLRunsAdaptor extends IplAdaptor {
+public class IplRunsAdaptor extends IplAdaptor {
 
     @Override
     public Map<String, IplDTO> loadIplData(String... csvFilePath) {
@@ -33,8 +33,8 @@ public class IPLRunsAdaptor extends IplAdaptor {
                         IPLMap.get(csvName.player).avgBolling = csvName.avgBolling;
                     });
         } catch (IOException e) {
-            throw new IPLAnalyserException(e.getMessage(),
-                    IPLAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
+            throw new IplAnalyserException(e.getMessage(),
+                    IplAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
         }
     }
 }
