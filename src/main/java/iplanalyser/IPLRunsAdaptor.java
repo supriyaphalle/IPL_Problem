@@ -21,7 +21,6 @@ public class IPLRunsAdaptor extends IplAdaptor {
         return iplMap;
     }
 
-
     public <E> void loadIplWktData(Map<String, IplDTO> IPLMap, String csvFilePath) {
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
@@ -29,9 +28,10 @@ public class IPLRunsAdaptor extends IplAdaptor {
             Iterable<IplWKTsCSV> csvIterable = () -> censusCSVIterator;
             StreamSupport.stream(csvIterable.spliterator(), false)
                     .filter(csvName -> IPLMap.get(csvName.player) != null)
-                    .forEach(csvName -> IPLMap.get(csvName.player).avgBolling = csvName.avgBolling);
-
-
+                    .forEach(csvName -> {
+                        IPLMap.get(csvName.player).wicket = csvName.wickets;
+                        IPLMap.get(csvName.player).avgBolling = csvName.avgBolling;
+                    });
         } catch (IOException e) {
             throw new IPLAnalyserException(e.getMessage(),
                     IPLAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);

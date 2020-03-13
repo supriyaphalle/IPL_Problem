@@ -9,7 +9,6 @@ public class IPLAnalyser {
     Map<sortField, Comparator<IplDTO>> sortedMap = null;
     Map<String, IplDTO> iplMap = new HashMap<>();
     private List<IplDTO> iplDTOList;
-    private IplDTO census;
 
     public enum CSVType {
         RUNS, WICKETS;
@@ -50,11 +49,6 @@ public class IPLAnalyser {
         iplMap = new IplAdaptorFactory().getIplData(type, FilePath);
     }
 
-    public void loadData(sortField type, String... FilePath) {
-        this.loadIplData(CSVType.RUNS, FilePath[0]);
-        iplMap = new LoadData().loadIplWktData(iplMap, type, FilePath[1]);
-    }
-
     public String getSortedIPLData(sortField field) throws IPLAnalyserException {
         if (iplMap == null || iplMap.size() == 0) {
             throw new IPLAnalyserException("No Census Data", IPLAnalyserException.ExceptionType.NO_CENSUS_DATA);
@@ -69,11 +63,11 @@ public class IPLAnalyser {
     private void sort(List<IplDTO> iplDTOList, Comparator<IplDTO> iplCSVComparator) {
         for (int i = 0; i < this.iplDTOList.size() - 1; i++) {
             for (int j = 0; j < this.iplDTOList.size() - i - 1; j++) {
-                IplDTO census1 = this.iplDTOList.get(j);
-                IplDTO census2 = this.iplDTOList.get(j + 1);
-                if (iplCSVComparator.compare(census1, census2) > 0) {
-                    this.iplDTOList.set(j, census2);
-                    this.iplDTOList.set(j + 1, census1);
+                IplDTO ipl1 = this.iplDTOList.get(j);
+                IplDTO ipl2 = this.iplDTOList.get(j + 1);
+                if (iplCSVComparator.compare(ipl1, ipl2) > 0) {
+                    this.iplDTOList.set(j, ipl2);
+                    this.iplDTOList.set(j + 1, ipl1);
                 }
             }
         }

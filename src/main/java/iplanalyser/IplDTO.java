@@ -10,7 +10,6 @@ public class IplDTO {
     public double strikeRate;
     public double avg;
     public double avgBolling;
-
     public double economy;
     public int wicket;
 
