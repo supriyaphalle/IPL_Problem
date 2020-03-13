@@ -174,10 +174,25 @@ public class IPLAnalyserTest {
             //            iplAnalyser.loadIplData(IPLAnalyser.CSVType.RUNS, IPL_RUNS_DATA, IPL_BOLLING_DATA);
             String loadIplData = iplAnalyser.getSortedIPLData(sortField.BATTINGBOLLING_AVERAGE);
             IplDTO[] censusCSV = new Gson().fromJson(loadIplData, IplDTO[].class);
-            Assert.assertEquals("Marcus Stoinis", censusCSV[0].player);
+            Assert.assertEquals("Krishnappa Gowtham", censusCSV[0].player);
         } catch (IPLAnalyserException e) {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void givenIPLData_whenALLRounder_ShouldReturnTrue() {
+        try {
+            IPLAnalyser iplAnalyser = new IPLAnalyser();
+            iplAnalyser.loadData(sortField.WICKETS,IPL_RUNS_DATA,IPL_BOLLING_DATA);
+            String loadIplData = iplAnalyser.getSortedIPLData(sortField.WICKETS);
+            IplDTO[] censusCSV = new Gson().fromJson(loadIplData, IplDTO[].class);
+            Assert.assertEquals("Hardik Pandya", censusCSV[0].player);
+        } catch (IPLAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 }

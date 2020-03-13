@@ -26,8 +26,8 @@ public class IplWKTsCSV {
     @CsvBindByName(column = "Econ", required = true)
     public double Econ;
 
-  @CsvBindByName(column = "Wkts" , required = true)
-    public int Wkts;
+    @CsvBindByName(column = "Wkts", required = true)
+    public int wickets;
 
 
 }

@@ -13,18 +13,22 @@ import java.util.stream.StreamSupport;
 
 public class LoadData {
 
-    public  <E> Map loadIplWktData(Map<String, IplDTO> IPLMap, sortField type, String csvFilePath)  {
+    public <E> Map loadIplWktData(Map<String, IplDTO> IPLMap, sortField type, String csvFilePath) {
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
             Iterator<IplWKTsCSV> censusCSVIterator = csvBuilder.getCSVFileIterator(reader, IplWKTsCSV.class);
             Iterable<IplWKTsCSV> csvIterable = () -> censusCSVIterator;
-
-            if( type.equals(sortField.BATTINGBOLLING_AVERAGE)){
+            if (type.equals(sortField.WICKETS)) {
+                StreamSupport.stream(csvIterable.spliterator(), false)
+                        .filter(csvName -> IPLMap.get(csvName.player) != null)
+                        .forEach(csvName ->  IPLMap.get(csvName.player).wicket = csvName.wickets);
+            }
+            if (type.equals(sortField.BATTINGBOLLING_AVERAGE)) {
                 StreamSupport.stream(csvIterable.spliterator(), false)
                         .filter(csvName -> IPLMap.get(csvName.player) != null)
                         .forEach(csvName -> IPLMap.get(csvName.player).avgBolling = csvName.avgBolling);
             }
-            return  IPLMap;
+            return IPLMap;
         } catch (IOException e) {
             throw new IPLAnalyserException(e.getMessage(),
                     IPLAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
